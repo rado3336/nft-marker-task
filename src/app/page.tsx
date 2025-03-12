@@ -5,9 +5,7 @@ import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -16,10 +14,7 @@ import {
 export default function Home() {
 
   const [balance, setBalance] = useState(null);
-  const [adressData, setAdressdata] = useState<any[]>(null);
   const [nfts, setNfts] = useState<any[]>([]);
-  const [transactions, setTransactions] = useState([]);
-  const [delegation, setDelegation] = useState(null);
 
   const headers = {
     project_id: 'mainnetRUrPjKhpsagz4aKOCbvfTPHsF0SmwhLc',
