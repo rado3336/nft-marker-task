@@ -27,8 +27,6 @@ export default function Home() {
       // Získanie informácií o adrese
       const addressResponse = await fetch(`https://cardano-mainnet.blockfrost.io/api/v0/addresses/${address}`, { headers });
       const addressData = await addressResponse.json();
-
-      setAdressdata(addressData)
       
       // Výpočet zostatku v ADA
       const lovelace = addressData.amount.find((amt) => amt.unit === 'lovelace')?.quantity || 0;
