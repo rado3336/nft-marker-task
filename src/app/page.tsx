@@ -60,45 +60,64 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full max-w-fit m-10 ">
+    <div className="w-full max-w-fit m-6 md:m-10 ">
         <div className="flex items-center w-full gap-4">
           <p className="text-2xl font-bold">Zůstatek:</p>
           <p className="text-xl">{balance} ₳</p>
         </div>
-        <Table className="w-full max-w-fit">
+        <Table className="w-full hidden md:block">
           <TableHeader className="">
-            <TableRow>
-              <TableHead className="w-full">Název</TableHead>
-              <TableHead className="w-full">název aktiva</TableHead>
-              <TableHead className="w-full">Počet</TableHead>
+            <TableRow className="">
+              <TableHead className="text-left w-full max-w-fit">Název</TableHead>
+              <TableHead className="text-left w-full ">Počet</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="">
           {nfts.map((data, index)=>{
-                  const imageUrl = typeof data.onchain_metadata.image === 'string'
-                  ? data.onchain_metadata.image.replace("ipfs://", "https://ipfs.io/ipfs/")
-                  : null;
-  
-                console.log(data.onchain_metadata.name, "data.onchain_metadata.name");
-                console.log(data.onchain_metadata.image, "data.onchain_metadata.image");
-              // const imageUrl = `https://ipfs.io/ipfs/QmV3HtjKZUGeAZnEeytLC3WJaz5txoWzKXhmT7mf2Cinuw`;
+              
+              const imageUrl = typeof data.onchain_metadata.image === 'string' ? data.onchain_metadata.image.replace("ipfs://", "https://ipfs.io/ipfs/") : null;
+              const evenOrOdd = index % 2 ? "bg-gray-300" : "";
+
               return(
-              <TableRow key={index}>
-                <TableCell className="text-left w-full">{data.onchain_metadata.name}</TableCell> 
-                <TableCell className="text-left w-full">{data.onchain_metadata.name}<p className="max-w-[4OOpx]"></p></TableCell>
-                <TableCell className="text-left w-full">{data.quantity}</TableCell>
-                <TableCell className="text-left">
+              <TableRow className={`h-[80px] flex items-center ${evenOrOdd}`}  key={index}>
+                <TableCell className="text-left w-full flex items-center gap-3">
                   {imageUrl ? (
                     <Image className="w-[50px] h-auto max-w-fit" src={imageUrl} alt={data.onchain_metadata.name} width={50} height={50} />
                   ) : (
                     "-"
                   )}
-                </TableCell>
-          
+                  <p>{data.onchain_metadata.name}</p>
+                </TableCell> 
+                <TableCell className="text-left w-full">{data.quantity}</TableCell>
               </TableRow>)
             })}
           </TableBody>
         </Table>
+        <div className="w-full max-w-fit block md:hidden">
+          {nfts.map((data, index)=>{
+            const imageUrl = typeof data.onchain_metadata.image === 'string' ? data.onchain_metadata.image.replace("ipfs://", "https://ipfs.io/ipfs/") : null;
+            const evenOrOdd = index % 2 ? "bg-gray-300" : "";
+
+            return(
+            <div className={`flex flex-col p-[24px] ${evenOrOdd}`} key={index}>
+              <div className="flex items-center gap-4">
+                <p className="font-bold">Název:</p>
+                <div className="flex items-center gap-3">
+                  <p>{data.onchain_metadata.name}</p>
+                  {imageUrl ? (
+                    <Image className="w-[50px] h-auto max-w-fit" src={imageUrl} alt={data.onchain_metadata.name} width={50} height={50} />
+                  ) : (
+                    "-"
+                  )}
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <p className="font-bold">Počet:</p>
+                <p>{data.quantity}</p>
+              </div>
+            </div>)
+          })}
+        </div>
     </div>
   );
 }
