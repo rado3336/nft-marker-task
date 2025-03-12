@@ -73,22 +73,28 @@ export default function Home() {
             </TableRow>
           </TableHeader>
           <TableBody className="">
+          {/* <TableRow className={`h-[80px] flex items-center`} >
+            <TableCell className="text-left w-full flex items-center gap-3">
+            Název
+            </TableCell> 
+            <TableCell className="text-left w-full">Počet</TableCell>
+          </TableRow> */}
           {nfts.map((data, index)=>{
               
               const imageUrl = typeof data.onchain_metadata.image === 'string' ? data.onchain_metadata.image.replace("ipfs://", "https://ipfs.io/ipfs/") : null;
               const evenOrOdd = index % 2 ? "bg-gray-300" : "";
 
               return(
-              <TableRow className={`h-[80px] flex items-center ${evenOrOdd}`}  key={index}>
-                <TableCell className="text-left w-full flex items-center gap-3">
+              <TableRow className={`max-h-[80px] h-full ${evenOrOdd}`}  key={index}>
+                <TableCell className="text-left h-[80px] flex items-center gap-3">
                   {imageUrl ? (
                     <Image className="w-[50px] h-auto max-w-fit" src={imageUrl} alt={data.onchain_metadata.name} width={50} height={50} />
                   ) : (
                     "-"
                   )}
-                  <p>{data.onchain_metadata.name}</p>
+                  <p className="">{data.onchain_metadata.name}</p>
                 </TableCell> 
-                <TableCell className="text-left w-full">{data.quantity}</TableCell>
+                <TableCell className="text-left w-full h-[80px]">{data.quantity}</TableCell>
               </TableRow>)
             })}
           </TableBody>
